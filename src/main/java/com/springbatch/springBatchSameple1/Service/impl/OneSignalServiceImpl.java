@@ -1,16 +1,13 @@
 package com.springbatch.springBatchSameple1.Service.impl;
 
 import com.springbatch.springBatchSameple1.Service.OneSignalService;
-import com.springbatch.springBatchSameple1.dto.SendNotificationDto;
+import com.springbatch.springBatchSameple1.dto.LoginDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Array;
-import java.util.Map;
 
 
 @Service
@@ -25,10 +22,13 @@ public class OneSignalServiceImpl implements OneSignalService {
 
 
     @Override
-    public Mono<SendNotificationDto> sendNotification() {
-        return webClient.get().uri("/posts/1")
+    public Mono<Object> sendNotification() {
+        LoginDto loginDto = new LoginDto("joden25", "123456");
+        return webClient.post()
+                .uri("/login")
+                .bodyValue(loginDto)
                 .retrieve()
-                .bodyToMono(SendNotificationDto.class);
+                .bodyToMono(Object.class);
     }
 
 
