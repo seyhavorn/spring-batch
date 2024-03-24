@@ -19,9 +19,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+#      - name: Build with Maven
+#        run: mvn -B package --file pom.xml
+#        continue-on-error: true
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
-        continue-on-error: true
+        run: |
+          mvn clean package --file pom.xml
+          mvn test --file pom.xml
+#
       - name: Test with Maven
         run: mvn test --file pom.xml
         continue-on-error: true
